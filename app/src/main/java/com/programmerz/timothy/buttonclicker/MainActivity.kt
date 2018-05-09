@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private var correctButton: Int = 0
+    private var userScore: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,9 +20,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun reset() {
+        generateRandom()
         startTimer()
         score.text = "0"
-        correctButton = 0
+    }
+
+    private fun generateRandom() {
+        correctButton = Random().nextInt(3)
     }
     
     private fun startTimer() {
@@ -30,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                time.text = "Game Over!"
+                time.text = getString(R.string.game_over)
             }
         }
         timer.start()
@@ -39,20 +45,65 @@ class MainActivity : AppCompatActivity() {
     fun onClick(view: View) {
         when (view.id) {
             R.id.button1 -> {
-                Toast.makeText(this, "button 1 was clicked!", Toast.LENGTH_SHORT).show()
+              checkFirstButton()
             }
             R.id.button2 -> {
-                Toast.makeText(this, "button 2 was clicked!", Toast.LENGTH_SHORT).show()
+              checkSecondButton()
             }
             R.id.button3 -> {
-                Toast.makeText(this, "button 3 was clicked!", Toast.LENGTH_SHORT).show()
+                checkThirdButton()
             }
             R.id.button4 -> {
-                Toast.makeText(this, "button 4 was clicked!", Toast.LENGTH_SHORT).show()
+                checkForthButton()
             }
             else -> {
                 Toast.makeText(this, "Critical mistakes were made...", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    private fun checkFirstButton() {
+        if (correctButton == 0) {
+            userScore++
+            score.text = userScore.toString()
+        } else {
+            incorrect()
+        }
+        generateRandom()
+    }
+
+    private fun checkSecondButton() {
+        if (correctButton == 1) {
+            userScore++
+            score.text = userScore.toString()
+        } else {
+            incorrect()
+        }
+        generateRandom()
+    }
+
+    private fun checkThirdButton() {
+        if (correctButton == 2) {
+            userScore++
+            score.text = userScore.toString()
+        } else {
+            incorrect()
+        }
+        generateRandom()
+    }
+
+    private fun checkForthButton() {
+        if (correctButton == 3) {
+            userScore++
+            score.text = userScore.toString()
+        } else {
+            incorrect()
+        }
+        generateRandom()
+    }
+
+    private fun incorrect() {
+        Toast.makeText(this, "You clicked the wrong button!", Toast.LENGTH_SHORT).show()
+    }
+
 }
