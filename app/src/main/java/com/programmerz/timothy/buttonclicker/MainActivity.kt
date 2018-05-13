@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     private fun generateRandom() {
         correctButton = Random().nextInt(3)
     }
+
+    private fun resetColor(view: View) {
+        view.setBackgroundResource(R.color.colorPrimary)
+    }
     
     private fun startTimer() {
         val timer = object: CountDownTimer(60000, 1000) {
@@ -37,6 +41,20 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 time.text = getString(R.string.game_over)
+                reset()
+            }
+        }
+        timer.start()
+    }
+
+    private fun startResetButtonColorTimer(view: View) {
+        val timer = object: CountDownTimer(2000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+                resetColor(view)
             }
         }
         timer.start()
@@ -45,16 +63,16 @@ class MainActivity : AppCompatActivity() {
     fun onClick(view: View) {
         when (view.id) {
             R.id.button1 -> {
-              checkFirstButton()
+              checkFirstButton(view)
             }
             R.id.button2 -> {
-              checkSecondButton()
+              checkSecondButton(view)
             }
             R.id.button3 -> {
-                checkThirdButton()
+                checkThirdButton(view)
             }
             R.id.button4 -> {
-                checkForthButton()
+                checkForthButton(view)
             }
             else -> {
                 Toast.makeText(this, "Critical mistakes were made...", Toast.LENGTH_SHORT).show()
@@ -62,44 +80,56 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkFirstButton() {
+    private fun checkFirstButton(view: View) {
         if (correctButton == 0) {
+            view.setBackgroundResource(R.color.green_A700)
             userScore++
             score.text = userScore.toString()
         } else {
+            view.setBackgroundResource(R.color.red_A700)
             incorrect()
         }
         generateRandom()
+        startResetButtonColorTimer(view)
     }
 
-    private fun checkSecondButton() {
+    private fun checkSecondButton(view: View) {
         if (correctButton == 1) {
+            view.setBackgroundResource(R.color.green_A700)
             userScore++
             score.text = userScore.toString()
         } else {
+            view.setBackgroundResource(R.color.red_A700)
             incorrect()
         }
         generateRandom()
+        startResetButtonColorTimer(view)
     }
 
-    private fun checkThirdButton() {
+    private fun checkThirdButton(view: View) {
         if (correctButton == 2) {
+            view.setBackgroundResource(R.color.green_A700)
             userScore++
             score.text = userScore.toString()
         } else {
+            view.setBackgroundResource(R.color.red_A700)
             incorrect()
         }
         generateRandom()
+        startResetButtonColorTimer(view)
     }
 
-    private fun checkForthButton() {
+    private fun checkForthButton(view: View) {
         if (correctButton == 3) {
+            view.setBackgroundResource(R.color.green_A700)
             userScore++
             score.text = userScore.toString()
         } else {
+            view.setBackgroundResource(R.color.red_A700)
             incorrect()
         }
         generateRandom()
+        startResetButtonColorTimer(view)
     }
 
     private fun incorrect() {
